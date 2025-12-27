@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Eksklusif | Rsl.id</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --text-color: #ffffff;
+            --accent-color: #ffcc00;
+            --card-bg: #1a1a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body { background: var(--bg-color); color: var(--text-color); overflow-x: hidden; }
+
+        /* Header & Sidebar */
+        header {
+            position: fixed; width: 100%; padding: 25px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; transition: 0.5s; background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: 2px; color: var(--accent-color); }
+
+        .menu-icon { cursor: pointer; z-index: 101; }
+        .bar { width: 30px; height: 3px; background: white; margin: 5px 0; transition: 0.4s; }
+
+        .sidebar {
+            height: 100%; width: 0; position: fixed; z-index: 1000;
+            top: 0; right: 0; background: rgba(0,0,0,0.98);
+            overflow-x: hidden; transition: 0.5s; padding-top: 100px;
+        }
+
+        .sidebar-brand { text-align: center; font-size: 2rem; color: var(--accent-color); margin-bottom: 30px; font-weight: bold; }
+
+        .nav-links { list-style: none; text-align: center; }
+        .nav-links li { margin: 20px 0; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: white; 
+            font-size: 1.5rem; 
+            transition: 0.3s; 
+            display: block;
+            padding: 10px;
+        }
+        .nav-links a:hover { color: var(--accent-color); transform: translateX(-10px); }
+
+        .close-btn { 
+            position: absolute; 
+            top: 20px; 
+            right: 45px; 
+            font-size: 40px; 
+            color: white; 
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Sections - PERBAIKAN KRITIS */
+        .section { 
+            min-height: 100vh; 
+            padding: 120px 50px 50px;
+            animation: fadeIn 0.8s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .section.active { 
+            opacity: 1;
+            visibility: visible;
+            position: relative;
+        }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* Home Section */
+        #home {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517134191118-9d595e4c8c2b?auto=format&fit=crop&w=1950&q=80');
+            background-size: cover; 
+            background-position: center;
+            background-attachment: fixed;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center;
+            padding: 0;
+        }
+
+        .hero-content { width: 100%; padding: 50px; }
+        .hero-content h4 { 
+            font-size: 1.5rem; 
+            margin-bottom: 20px; 
+            animation: fadeIn 1s ease-in-out;
+        }
+        .hero-content p { 
+            font-size: 1.2rem; 
+            margin-top: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        #typing-text { 
+            font-size: 4rem; 
+            color: var(--accent-color); 
+            min-height: 80px;
+            font-weight: 700;
+        }
+
+        /* Biodata Section */
+        .container { max-width: 1200px; margin: 0 auto; }
+        .title { 
+            font-size: 2.5rem; 
+            color: var(--accent-color); 
+            margin-bottom: 40px; 
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .bio-wrapper { 
+            display: grid; 
+            grid-template-columns: 1fr 2fr; 
+            gap: 40px; 
+            margin-top: 40px;
+            align-items: start;
+        }
+        .bio-img img { 
+            width: 100%; 
+            border-radius: 10px; 
+            border: 3px solid var(--accent-color);
+            transition: transform 0.3s;
+        }
+        .bio-img img:hover { transform: scale(1.05); }
+        
+        .bio-info { 
+            background: var(--card-bg); 
+            padding: 30px; 
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .bio-info h3 { 
+            color: var(--accent-color); 
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        .bio-details { list-style: none; }
+        .bio-details li { 
+            padding: 15px 0; 
+            border-bottom: 1px solid #333;
+            font-size: 1rem;
+        }
+        .bio-details li:last-child { border-bottom: none; }
+        .bio-details li strong { color: var(--accent-color); margin-right: 10px; }
+
+        /* Gallery */
+        .gallery-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+            margin-top: 40px; 
+        }
+        .gallery-card { 
+            position: relative; 
+            overflow: hidden; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            height: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .gallery-card img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s;
+        }
+        .gallery-card:hover img { transform: scale(1.2); }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            opacity: 0;
+            transition: 0.5s;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .overlay-text h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .overlay-text p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .gallery-card:hover .overlay {
+            opacity: 1;
+        }
+
+        /* Spreadsheet Table */
+        .filter-wrapper { 
+            margin-bottom: 30px; 
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .filter-wrapper label { 
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .filter-wrapper select { 
+            padding: 12px 25px; 
+            border-radius: 8px; 
+            background: var(--card-bg); 
+            color: white; 
+            border: 2px solid var(--accent-color);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .filter-wrapper select:hover {
+            background: var(--accent-color);
+            color: black;
+        }
+
+        .table-responsive { 
+            overflow-x: auto; 
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            background: var(--card-bg); 
+            border-radius: 10px; 
+            overflow: hidden; 
+        }
+        th, td { 
+            padding: 18px; 
+            text-align: left; 
+            border-bottom: 1px solid #333; 
+        }
+        th { 
+            background: var(--accent-color); 
+            color: black; 
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        tr:hover { background: rgba(255, 204, 0, 0.1); }
+        .table-thumb { 
+            width: 70px; 
+            height: 70px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+            transition: transform 0.3s;
+        }
+        .table-thumb:hover { transform: scale(1.1); }
+
+        /* Lightbox */
+        .lightbox { 
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.95); 
+            justify-content: center; 
+            align-items: center; 
+        }
+        #lightbox-img { 
+            max-width: 90%; 
+            max-height: 90%; 
+            border: 5px solid var(--accent-color);
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255, 204, 0, 0.5);
+        }
+        .close-lightbox { 
+            position: absolute; 
+            top: 30px; 
+            right: 50px; 
+            color: white; 
+            font-size: 50px; 
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 2001;
+        }
+        .close-lightbox:hover { 
+            color: var(--accent-color); 
+            transform: rotate(90deg);
+        }
+
+        /* Story Section Styles */
+        .story-section {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header { padding: 20px; }
+            .section { padding: 100px 20px 50px; }
+            #typing-text { font-size: 2.5rem; }
+            .bio-wrapper { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .hero-content h4 { font-size: 1.2rem; }
+            .hero-content p { font-size: 1rem; }
+            
+            /* Story section responsive */
+            .story-section > div {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            .story-section img {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="toggleNav()">&times;</a>
+        <div class="sidebar-brand">MENU</div>
+        <ul class="nav-links">
+            <li><a href="javascript:void(0)" onclick="showSection('home')"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="javascript:void(0)" onclick="showSection('biodata')"><i class="fas fa-user"></i> Biodata</a></li>
+            <li><a href="javascript:void(0)" onclick="showSection('moment')"><i class="fas fa-camera"></i> Moment</a></li>
+            <li><a href="javascript:void(0)" onclick="showSection('spreadsheet')"><i class="fas fa-table"></i> Spreadsheet</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <div class="logo">RSL.ID</div>
+        <div class="menu-icon" onclick="toggleNav()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </header>  
+
+    <main id="main">
+        <section id="home" class="section active">
+            <div class="hero-content">
+                <h4 class="fade-in">Halo, Kawan!</h4>
+                <h1 id="typing-text"></h1>
+                <p class="fade-in">Di Karya Anak Rebahan, Beri Perubahan</p>
+            </div>
+        </section>
+
+        <section id="biodata" class="section">
+            <div class="container">
+                <h2 class="title">Biodata Diri</h2>
+                <div class="bio-wrapper">
+                    <div class="bio-img">
+                        <img src="CIHUYY.jpeg" class="lightbox-trigger" alt="Foto Profil">
+                    </div>
+                    <div class="bio-info">
+                        <h3>Detail Profil</h3>
+                        <ul class="bio-details">
+                            <li><strong>Nama Lengkap:</strong> Risal Maulana</li>
+                            <li><strong>Tempat, Tgl Lahir:</strong> Sumenep, 03 April </li>
+                            <li><strong>Pendidikan:</strong> Informatika UNIBA Madura</li>
+                            <li><strong>Keahlian:</strong> Mapeggel Oreng, Data analis, Sastra, UI desain</li>
+                            <li><strong>Email:</strong> sapegile4@gmail.com</li>
+                        </ul>
+                        <div class="Dari Pria Untuk Pria" style="margin-top: 30px; padding: 20px; background: rgba(255, 204, 0, 0.1); border-left: 4px solid var(--accent-color); border-radius: 5px;">
+                            <h3 style="color: var(--accent-color); font-size: 1.2rem; margin-bottom: 10px;"><i class="fas fa-shield-alt"></i> Dari Pria Untuk Pria</h3>
+                            <p style="font-style: italic; font-size: 0.95rem; line-height: 1.6;">"Singkat saja, jika memilih Pilihlah yang TERBAIK, jika dipilih Jadilah yang TERBAIK"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cerita Pendek Section -->
+                <div class="story-section" style="margin-top: 50px; padding: 30px; background: var(--card-bg); border-radius: 15px; border: 2px solid var(--accent-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <h2 style="color: var(--accent-color); font-size: 2rem; margin-bottom: 25px; text-align: center;">
+                        <i class="fas fa-book-open"></i> Baris-Baris Tak Bertuan
+                    </h2>
+                    
+                    <div style="display: grid; grid-template-columns: 200px 1fr; gap: 25px; align-items: start;">
+                        <!-- Foto Pengarang -->
+                        <div style="text-align: center;">
+                            <img src="EA.jpeg" alt="Foto Pengarang" style="width: 100%; border-radius: 10px; border: 3px solid var(--accent-color); box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);">
+                            <h4 style="color: var(--accent-color); margin-top: 15px; font-size: 1.1rem;">Risal Maulana</h4>
+                            <p style="font-size: 0.85rem; color: #aaa; font-style: italic;">Sastrawan Antah Berantah
+                        </div>
+                        
+                        <!-- Isi Cerita -->
+                        <div style="padding: 10px;">
+                            <h3 style="color: var(--accent-color); font-size: 1.5rem; margin-bottom: 15px; font-weight: 600;"> "Dari Santri Yang Mulia, Menjadi Mahasiswa Gila Logika"</h3>
+                            
+                            <div style="line-height: 1.8; font-size: 0.95rem; text-align: justify; color: #ddd;">
+                                <p style="margin-bottom: 15px;">
+                                    Namaku hanyalah sebaris huruf yang sering terselip di antara doa-doa yang belum sempat terkabul. Aku seorang santri, tumbuh di antara sunyi pesantren yang mengajarkan bahwa cahaya tak selalu datang dari lampu, kadang dari hati yang tersesat lalu kembali mencari arah. Namun, takdir membawaku menyusuri lorong lain,jurusan informatika,tempat logika berdentang kaku, jauh dari lantunan kitab yang dulu menuntunku tidur.
+                                </p>
+                                <p style="margin-bottom: 15px;">
+                                    Setiap hari aku berjalan di antara dua dunia: yang satu penuh hikmah dan jeda, yang lain dipenuhi kode-kode yang tak mengenal rasa. Kadang aku merasa menjadi jembatan yang retak, mencoba menautkan iman dengan algoritma, mencoba memahami hidup lewat baris-baris sintaks yang sering gagal disusun hati.
+                                </p>
+                                <p style="margin-bottom: 15px;">
+                                    Jika kau bertanya siapa aku, mungkin jawabannya adalah seseorang yang masih belajar menerima bahwa perjalanan tak selalu setia pada harapan. Aku menapaki waktu dengan langkah pelan, menahan perih yang tak pernah benar-benar meminta izin. Menjadi santri yang bergelut dengan praktikum-paktikum sering kali membuatku merasa seperti huruf yang tercecer di tepi halaman ada, tapi hampir tak tersisa, gila dan sirna.
+                                </p>
+                                <p style="font-style: italic; color: var(--accent-color); margin-top: 20px; padding-top: 15px; border-top: 1px solid #333;">
+                                    "Salam penuh cinta, salam seni dan budaya."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="moment" class="section">
+            <div class="container">
+                <h2 class="title">Capture Moments</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-card">
+                        <img src="https://picsum.photos/600/400?random=10" class="lightbox-trigger" alt="Workshop Teknologi">
+                        <div class="overlay">
+                            <div class="overlay-text">
+                                <h4>Workshop Teknologi</h4>
+                                <p>Momen berbagi ilmu tentang pengembangan web modern di komunitas lokal.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-card">
+                        <img src="https://picsum.photos/600/400?random=11" class="lightbox-trigger" alt="Solo Traveling">
+                        <div class="overlay">
+                            <div class="overlay-text">
+                                <h4>Solo Traveling</h4>
+                                <p>Menjelajahi alam untuk menyegarkan pikiran dan mencari inspirasi desain baru.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-card">
+                        <img src="https://picsum.photos/600/400?random=12" class="lightbox-trigger" alt="Award Night">
+                        <div class="overlay">
+                            <div class="overlay-text">
+                                <h4>Award Night</h4>
+                                <p>Apresiasi atas kerja keras tim dalam menyelesaikan proyek tepat waktu.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="spreadsheet" class="section">
+            <div class="container">
+                <h2 class="title">Financial Tracker</h2>
+                <div class="filter-wrapper">
+                    <label for="monthFilter">Pilih Bulan:</label>
+                    <select id="monthFilter" onchange="renderTable()">
+                        <option value="Januari">Januari</option>
+                        <option value="Februari">Februari</option>
+                        <option value="Maret">Maret</option>
+                    </select>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Foto Bukti</th>
+                                <th>Pemasukan</th>
+                                <th>Pengeluaran</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="Lightbox Image">
+    </div>
+
+    <script>
+        // Navigasi Sidebar
+        function toggleNav() {
+            const sidebar = document.getElementById("sidebar");
+            if (sidebar.style.width === "100%" || sidebar.style.width === "100vw") {
+                sidebar.style.width = "0";
+            } else {
+                sidebar.style.width = "100%";
+            }
+        }
+
+        function showSection(sectionId) {
+            console.log('Switching to section:', sectionId); // Debug log
+            
+            // Hapus class active dari semua section
+            const allSections = document.querySelectorAll('.section');
+            allSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Tambahkan class active ke section yang dipilih
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                console.log('Section activated:', sectionId); // Debug log
+            } else {
+                console.error('Section not found:', sectionId); // Debug log
+            }
+            
+            // Tutup sidebar
+            toggleNav();
+            
+            // Scroll ke atas
+            window.scrollTo(0, 0);
+        }
+
+        // Effect Typing (Home)
+        const text = "Selamat Datang.";
+        let i = 0;
+        function typeWriter() {
+            const typingElement = document.getElementById("typing-text");
+            if (typingElement && i < text.length) {
+                typingElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 150);
+            }
+        }
+
+        // Spreadsheet Data
+        const financeData = {
+            "Januari": [
+                { img: 'https://picsum.photos/100?random=21', in: 'Rp 5.000.000', out: 'Rp 2.500.000', ket: 'Gaji Bulanan' },
+                { img: 'https://picsum.photos/100?random=22', in: 'Rp 0', out: 'Rp 500.000', ket: 'Beli Gadget' }
+            ],
+            "Februari": [
+                { img: 'https://picsum.photos/100?random=23', in: 'Rp 6.000.000', out: 'Rp 3.000.000', ket: 'Project Freelance' },
+                { img: 'https://picsum.photos/100?random=24', in: 'Rp 1.000.000', out: 'Rp 800.000', ket: 'Bonus & Belanja' }
+            ],
+            "Maret": [
+                { img: 'https://picsum.photos/100?random=25', in: 'Rp 5.500.000', out: 'Rp 2.000.000', ket: 'Konsultasi Web' },
+                { img: 'https://picsum.photos/100?random=26', in: 'Rp 2.000.000', out: 'Rp 1.500.000', ket: 'Project UI/UX' }
+            ]
+        };
+
+        function renderTable() {
+            const month = document.getElementById('monthFilter').value;
+            const body = document.getElementById('tableBody');
+            body.innerHTML = '';
+
+            if (financeData[month] && financeData[month].length > 0) {
+                financeData[month].forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><img src="${item.img}" class="table-thumb lightbox-trigger" alt="Bukti"></td>
+                        <td style="color: #00ff00; font-weight: 600;">${item.in}</td>
+                        <td style="color: #ff4d4d; font-weight: 600;">${item.out}</td>
+                        <td>${item.ket}</td>
+                    `;
+                    body.appendChild(row);
+                });
+            } else {
+                body.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 30px;">Tidak ada data untuk bulan ini</td></tr>';
+            }
+        }
+
+        // Lightbox Feature
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('lightbox-trigger')) {
+                e.preventDefault();
+                lightbox.style.display = "flex";
+                lightboxImg.src = e.target.src;
+            }
+        });
+
+        function closeLightbox() {
+            lightbox.style.display = "none";
+        }
+
+        // Close lightbox with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // Close lightbox when clicking outside image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            typeWriter();
+            renderTable();
+            console.log('Page loaded successfully'); // Debug log
+        });
+    </script>
+</body>
+</html>
